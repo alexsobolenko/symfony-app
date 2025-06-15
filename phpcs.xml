@@ -1,17 +1,23 @@
 <?xml version="1.0"?>
 <ruleset name="local">
-    <arg name="warning-severity" value="0" />
-    <arg name="no-cache" />
-    <arg name="colors" />
+    <arg name="warning-severity" value="0"/>
+    <arg name="no-cache"/>
+    <arg name="colors"/>
     <arg value="sp" />
 
-    <file>./src</file>
-
-    <exclude-pattern>/src/Kernel.php</exclude-pattern>
+    <file>src</file>
 
     <rule ref="PSR1" />
-    <rule ref="PSR2" />
-    <rule ref="PSR12" />
+
+    <rule ref="PSR2">
+        <exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine" />
+    </rule>
+
+    <rule ref="PSR12">
+        <exclude name="PSR12.ControlStructures.ControlStructureSpacing.FirstExpressionLine" />
+        <exclude name="PSR12.Files.FileHeader.SpacingAfterBlock" />
+        <exclude name="PSR12.Files.OpenTag.NotAlone" />
+    </rule>
 
     <rule ref="Generic">
         <exclude name="Generic.Arrays.DisallowShortArraySyntax.Found" />
@@ -23,6 +29,7 @@
         <exclude name="Generic.Commenting.DocComment.NonParamGroup" />
         <exclude name="Generic.Commenting.DocComment.SpacingBeforeTags" />
         <exclude name="Generic.Commenting.DocComment.TagValueIndent" />
+        <exclude name="Generic.Debug" />
         <exclude name="Generic.Files.LineEndings.InvalidEOLChar" />
         <exclude name="Generic.Files.LineLength.MaxExceeded" />
         <exclude name="Generic.Files.LineLength.TooLong" />
@@ -32,6 +39,7 @@
         <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSame" />
         <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning" />
         <exclude name="Generic.Formatting.NoSpaceAfterCast.SpaceFound" />
+        <exclude name="Generic.Formatting.SpaceAfterCast.TooMuchSpace" />
         <exclude name="Generic.Formatting.SpaceAfterNot.Incorrect" />
         <exclude name="Generic.Formatting.SpaceBeforeCast.NoSpace" />
         <exclude name="Generic.Functions.OpeningFunctionBraceBsdAllman.BraceOnSameLine" />
@@ -39,12 +47,15 @@
         <exclude name="Generic.Metrics.CyclomaticComplexity.MaxExceeded" />
         <exclude name="Generic.Metrics.CyclomaticComplexity.TooHigh" />
         <exclude name="Generic.Metrics.NestingLevel.TooHigh" />
+        <exclude name="Generic.NamingConventions.CamelCapsFunctionName.ScopeNotCamelCaps" />
         <exclude name="Generic.PHP.ClosingPHPTag.NotFound" />
         <exclude name="Generic.PHP.UpperCaseConstant.Found" />
         <exclude name="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed" />
+        <exclude name="Generic.NamingConventions.CamelCapsFunctionName.ScopeNotCamelCaps" />
     </rule>
 
     <rule ref="PEAR">
+        <exclude name="PEAR.Classes.ClassDeclaration.OpenBraceNewLine" />
         <exclude name="PEAR.Commenting.ClassComment.Missing" />
         <exclude name="PEAR.Commenting.ClassComment.MissingAuthorTag" />
         <exclude name="PEAR.Commenting.ClassComment.MissingCategoryTag" />
@@ -55,13 +66,16 @@
         <exclude name="PEAR.Commenting.FunctionComment.Missing" />
         <exclude name="PEAR.Commenting.FunctionComment.MissingParamComment" />
         <exclude name="PEAR.Commenting.FunctionComment.MissingReturn" />
+        <exclude name="PEAR.Commenting.FunctionComment.SpacingAfterParamName" />
         <exclude name="PEAR.Commenting.FunctionComment.SpacingAfterParamType" />
+        <exclude name="PEAR.ControlStructures.MultiLineCondition.StartWithBoolean" />
         <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
         <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
         <exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments" />
         <exclude name="PEAR.Functions.FunctionCallSignature.SpaceAfterCloseBracket" />
         <exclude name="PEAR.NamingConventions.ValidFunctionName.PrivateNoUnderscore" />
         <exclude name="PEAR.NamingConventions.ValidVariableName.PrivateNoUnderscore" />
+        <exclude name="PEAR.WhiteSpace.ScopeClosingBrace.Line" />
         <exclude name="PEAR.WhiteSpace.ScopeIndent.IncorrectExact" />
     </rule>
 
@@ -69,6 +83,8 @@
         <exclude name="Squiz.Arrays.ArrayDeclaration.DoubleArrowNotAligned" />
         <exclude name="Squiz.Arrays.ArrayDeclaration.MultiLineNotAllowed" />
         <exclude name="Squiz.Arrays.ArrayDeclaration.SingleLineNotAllowed" />
+        <exclude name="Squiz.Classes.ClassDeclaration.CloseBraceSameLine" />
+        <exclude name="Squiz.Classes.ClassDeclaration.OpenBraceNewLine" />
         <exclude name="Squiz.Commenting.BlockComment.WrongStart" />
         <exclude name="Squiz.Commenting.ClassComment.Missing" />
         <exclude name="Squiz.Commenting.ClassComment.TagNotAllowed" />
@@ -77,24 +93,34 @@
         <exclude name="Squiz.Commenting.FileComment.Missing" />
         <exclude name="Squiz.Commenting.FunctionComment.EmptyThrows" />
         <exclude name="Squiz.Commenting.FunctionComment.IncorrectParamVarName" />
+        <exclude name="Squiz.Commenting.FunctionComment.IncorrectTypeHint" />
+        <exclude name="Squiz.Commenting.FunctionComment.InvalidNoReturn" />
         <exclude name="Squiz.Commenting.FunctionComment.InvalidReturn" />
         <exclude name="Squiz.Commenting.FunctionComment.Missing" />
         <exclude name="Squiz.Commenting.FunctionComment.MissingParamComment" />
         <exclude name="Squiz.Commenting.FunctionComment.MissingReturn" />
+        <exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop" />
+        <exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamName" />
         <exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType" />
         <exclude name="Squiz.Commenting.FunctionComment.TypeHintMissing" />
         <exclude name="Squiz.Commenting.FunctionCommentThrowTag.Missing" />
         <exclude name="Squiz.Commenting.FunctionCommentThrowTag.WrongNumber" />
         <exclude name="Squiz.Commenting.InlineComment.DocBlock" />
-        <exclude name="Squiz.Commenting.VariableComment.IncorrectVarType" />
-        <exclude name="Squiz.Commenting.VariableComment.TagNotAllowed" />
+        <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar" />
+        <exclude name="Squiz.Commenting.InlineComment.NotCapital" />
         <exclude name="Squiz.Commenting.LongConditionClosingComment.Missing" />
+        <exclude name="Squiz.Commenting.PostStatementComment.Found" />
+        <exclude name="Squiz.Commenting.VariableComment.IncorrectVarType" />
+        <exclude name="Squiz.Commenting.VariableComment.Missing" />
+        <exclude name="Squiz.Commenting.VariableComment.TagNotAllowed" />
+        <exclude name="Squiz.Debug" />
         <exclude name="Squiz.ControlStructures.InlineIfDeclaration.NoBrackets" />
         <exclude name="Squiz.ControlStructures.InlineIfDeclaration.NotSingleLine" />
         <exclude name="Squiz.ControlStructures.SwitchDeclaration.BreakIndent" />
         <exclude name="Squiz.ControlStructures.SwitchDeclaration.DefaultNoBreak" />
         <exclude name="Squiz.ControlStructures.SwitchDeclaration.MissingDefault" />
         <exclude name="Squiz.ControlStructures.SwitchDeclaration.SpacingAfterBreak" />
+        <exclude name="Squiz.Objects.ObjectInstantiation.NotAssigned" />
         <exclude name="Squiz.Operators.ComparisonOperatorUsage.ImplicitTrue" />
         <exclude name="Squiz.Operators.ComparisonOperatorUsage.NotAllowed" />
         <exclude name="Squiz.Operators.IncrementDecrementUsage.Found" />
@@ -104,6 +130,9 @@
         <exclude name="Squiz.PHP.DisallowComparisonAssignment.AssignedBool" />
         <exclude name="Squiz.PHP.DisallowComparisonAssignment.AssignedComparison" />
         <exclude name="Squiz.PHP.DisallowInlineIf.Found" />
+        <exclude name="Squiz.PHP.DisallowMultipleAssignments.Found" />
+        <exclude name="Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure" />
+        <exclude name="Squiz.PHP.Heredoc.NotAllowed" />
         <exclude name="Squiz.Strings.ConcatenationSpacing.PaddingFound" />
         <exclude name="Squiz.WhiteSpace.FunctionClosingBraceSpace.SpacingBeforeClose" />
         <exclude name="Squiz.WhiteSpace.FunctionSpacing.After" />
@@ -113,10 +142,15 @@
         <exclude name="Squiz.WhiteSpace.MemberVarSpacing.FirstIncorrect" />
         <exclude name="Squiz.WhiteSpace.ObjectOperatorSpacing.Before" />
         <exclude name="Squiz.WhiteSpace.OperatorSpacing.SpacingBefore" />
+        <exclude name="Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore" />
         <exclude name="Squiz.WhiteSpace.SemicolonSpacing.Incorrect" />
+        <exclude name="Squiz.Strings.DoubleQuoteUsage.ContainsVar" />
+        <exclude name="Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps" />
     </rule>
 
     <rule ref="Zend">
         <exclude name="Zend.NamingConventions.ValidVariableName.PrivateNoUnderscore" />
+        <exclude name="Zend.NamingConventions.ValidVariableName.NotCamelCaps" />
+        <exclude name="Zend.NamingConventions.ValidVariableName.MemberVarNotCamelCaps" />
     </rule>
 </ruleset>

@@ -1,8 +1,6 @@
-path: ./
+path: ./src
 jobs: 10
-cache: phplint.cache
+cache: phplint
 extensions:
-    - php
-exclude:
-    - vendor
+  - php
 warning: false

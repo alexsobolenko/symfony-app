@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Author;
-use App\Exception\AppException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * @extends ServiceEntityRepository<Author>
+ */
 class AuthorRepository extends ServiceEntityRepository
 {
     /**
@@ -23,15 +26,15 @@ class AuthorRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param string $id
+     * @param int $id
      * @return Author
-     * @throws AppException
+     * @throws NotFoundHttpException
      */
-    public function get(string $id): Author
+    public function get(int $id): Author
     {
         $author = $this->find($id);
         if (!$author instanceof Author) {
-            throw new AppException('error.author_not_found', Response::HTTP_NOT_FOUND);
+            throw new NotFoundHttpException('error.author_not_found');
         }
 
         return $author;
@@ -40,53 +43,53 @@ class AuthorRepository extends ServiceEntityRepository
     /**
      * @param string $name
      * @return Author
-     * @throws AppException
+     * @throws BadRequestHttpException
      */
     public function create(string $name): Author
     {
         try {
             $author = new Author($name);
-            $this->_em->persist($author);
-            $this->_em->flush();
+            $this->getEntityManager()->persist($author);
+            $this->getEntityManager()->flush();
         } catch (\Throwable $e) {
-            throw new AppException($e->getMessage(), $e->getCode());
+            throw new BadRequestHttpException($e->getMessage(), $e);
         }
 
         return $author;
     }
 
     /**
-     * @param string $id
+     * @param int $id
      * @param string $name
      * @return Author
-     * @throws AppException
+     * @throws BadRequestHttpException
      */
-    public function edit(string $id, string $name): Author
+    public function edit(int $id, string $name): Author
     {
         $author = $this->get($id);
         try {
             $author->setName($name);
-            $this->_em->flush();
+            $this->getEntityManager()->flush();
         } catch (\Throwable $e) {
-            throw new AppException($e->getMessage(), $e->getCode());
+            throw new BadRequestHttpException($e->getMessage(), $e);
         }
 
         return $author;
     }
 
     /**
-     * @param string $id
+     * @param int $id
      * @return Author
-     * @throws AppException
+     * @throws BadRequestHttpException
      */
-    public function delete(string $id): Author
+    public function delete(int $id): Author
     {
         $author = $this->get($id);
         try {
-            $this->_em->remove($author);
-            $this->_em->flush();
+            $this->getEntityManager()->remove($author);
+            $this->getEntityManager()->flush();
         } catch (\Throwable $e) {
-            throw new AppException($e->getMessage(), $e->getCode());
+            throw new BadRequestHttpException($e->getMessage(), $e);
         }
 
         return $author;
@@ -105,7 +108,7 @@ class AuthorRepository extends ServiceEntityRepository
     /**
      * @param array $filters
      * @return int
-     * @throws AppException
+     * @throws BadRequestHttpException
      */
     public function countByFilter(array $filters): int
     {
@@ -115,14 +118,14 @@ class AuthorRepository extends ServiceEntityRepository
         try {
             return (int) $qb->getQuery()->getSingleScalarResult();
         } catch (ORMException $e) {
-            throw new AppException($e->getMessage(), $e->getCode(), $e);
+            throw new BadRequestHttpException($e->getMessage(), $e);
         }
     }
 
     /**
      * @param array $filters
      * @return array
-     * @throws AppException
+     * @throws BadRequestHttpException
      */
     public function findByFilter(array $filters): array
     {
@@ -138,7 +141,7 @@ class AuthorRepository extends ServiceEntityRepository
         try {
             return $qb->getQuery()->getResult();
         } catch (ORMException $e) {
-            throw new AppException($e->getMessage(), $e->getCode(), $e);
+            throw new BadRequestHttpException($e->getMessage(), $e);
         }
     }
 
@@ -149,6 +152,7 @@ class AuthorRepository extends ServiceEntityRepository
     private function createQuery(array $filters): QueryBuilder
     {
         $qb = $this->createQueryBuilder('a');
+
         $name = $filters['name'] ?? null;
         if ($name) {
             $qb->andWhere($qb->expr()->like('a.name', ':name'));

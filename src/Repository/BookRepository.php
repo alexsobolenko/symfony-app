@@ -6,13 +6,16 @@ namespace App\Repository;
 
 use App\Entity\Author;
 use App\Entity\Book;
-use App\Exception\AppException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * @extends ServiceEntityRepository<Book>
+ */
 class BookRepository extends ServiceEntityRepository
 {
     /**
@@ -24,78 +27,78 @@ class BookRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param string $id
+     * @param int $id
      * @return Book
-     * @throws AppException
+     * @throws NotFoundHttpException
      */
-    public function get(string $id): Book
+    public function get(int $id): Book
     {
         $book = $this->find($id);
         if (!$book instanceof Book) {
-            throw new AppException('error.book_not_found', Response::HTTP_NOT_FOUND);
+            throw new NotFoundHttpException('error.book_not_found');
         }
 
         return $book;
     }
 
     /**
-     * @param string $authorId
+     * @param int $authorId
      * @param string $name
      * @param float $price
      * @return Book
-     * @throws AppException
+     * @throws BadRequestHttpException
      */
-    public function create(string $authorId, string $name, float $price): Book
+    public function create(int $authorId, string $name, float $price): Book
     {
-        $author = $this->_em->getRepository(Author::class)->get($authorId);
+        $author = $this->getEntityManager()->getRepository(Author::class)->get($authorId);
         try {
             $book = new Book($author, $name, $price);
-            $this->_em->persist($book);
-            $this->_em->flush();
+            $this->getEntityManager()->persist($book);
+            $this->getEntityManager()->flush();
         } catch (\Throwable $e) {
-            throw new AppException($e->getMessage(), $e->getCode());
+            throw new BadRequestHttpException($e->getMessage(), $e);
         }
 
         return $book;
     }
 
     /**
-     * @param string $id
-     * @param string $authorId
+     * @param int $id
+     * @param int $authorId
      * @param string $name
      * @param float $price
      * @return Book
-     * @throws AppException
+     * @throws BadRequestHttpException
      */
-    public function edit(string $id, string $authorId, string $name, float $price): Book
+    public function edit(int $id, int $authorId, string $name, float $price): Book
     {
-        $author = $this->_em->getRepository(Author::class)->get($authorId);
+        $author = $this->getEntityManager()->getRepository(Author::class)->get($authorId);
         $book = $this->get($id);
         try {
             $book->setAuthor($author);
             $book->setName($name);
             $book->setPrice($price);
-            $this->_em->flush();
+            $this->getEntityManager()->flush();
         } catch (\Throwable $e) {
-            throw new AppException($e->getMessage(), $e->getCode());
+            throw new BadRequestHttpException($e->getMessage(), $e);
         }
 
         return $book;
     }
 
     /**
-     * @param string $id
+     * @param int $id
      * @return Book
-     * @throws AppException
+     * @throws BadRequestHttpException
      */
-    public function delete(string $id): Book
+    public function delete(int $id): Book
     {
         $book = $this->get($id);
         try {
-            $this->_em->remove($book);
-            $this->_em->flush();
+            $this->getEntityManager()->remove($book);
+            $this->getEntityManager()->flush();
         } catch (\Throwable $e) {
-            throw new AppException($e->getMessage(), $e->getCode());
+            throw new BadRequestHttpException($e->getMessage(), $e);
         }
 
         return $book;
@@ -104,7 +107,7 @@ class BookRepository extends ServiceEntityRepository
     /**
      * @param array $filters
      * @return int
-     * @throws AppException
+     * @throws BadRequestHttpException
      */
     public function countByFilter(array $filters): int
     {
@@ -114,14 +117,14 @@ class BookRepository extends ServiceEntityRepository
         try {
             return (int) $qb->getQuery()->getSingleScalarResult();
         } catch (ORMException $e) {
-            throw new AppException($e->getMessage(), $e->getCode(), $e);
+            throw new BadRequestHttpException($e->getMessage(), $e);
         }
     }
 
     /**
      * @param array $filters
      * @return array
-     * @throws AppException
+     * @throws BadRequestHttpException
      */
     public function findByFilter(array $filters): array
     {
@@ -138,7 +141,7 @@ class BookRepository extends ServiceEntityRepository
         try {
             return $qb->getQuery()->getResult();
         } catch (ORMException $e) {
-            throw new AppException($e->getMessage(), $e->getCode(), $e);
+            throw new BadRequestHttpException($e->getMessage(), $e);
         }
     }
 

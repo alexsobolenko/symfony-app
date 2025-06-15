@@ -73,11 +73,11 @@ class AppAssertsTest extends WebTestCase
         self::bootKernel();
 
         /** @var EntityManagerInterface $entityManager */
-        $entityManager = self::$container->get('doctrine.orm.default_entity_manager');
+        $entityManager = self::getContainer()->get('doctrine.orm.default_entity_manager');
         $this->entityManager = $entityManager;
 
         /** @var UrlGeneratorInterface $router */
-        $router = self::$container->get('router');
+        $router = self::getContainer()->get('router');
         $this->router = $router;
     }
 
@@ -165,8 +165,7 @@ class AppAssertsTest extends WebTestCase
 
         foreach ($this->data[0]['books'] as $bookItem) {
             $book = $bookRepo->find($bookItem['id']);
-            $entity = $this->entityManager->merge($book);
-            $this->entityManager->remove($entity);
+            $this->entityManager->remove($book);
             $this->entityManager->flush();
         }
 
@@ -181,8 +180,7 @@ class AppAssertsTest extends WebTestCase
         });
 
         $author = $authorRepo->find($this->data[1]['id']);
-        $entity = $this->entityManager->merge($author);
-        $this->entityManager->remove($entity);
+        $this->entityManager->remove($author);
         $this->entityManager->flush();
 
         $client->request('GET', $this->router->generate('app_authors_list'));

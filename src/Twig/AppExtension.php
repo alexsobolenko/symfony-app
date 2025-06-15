@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
-use App\Exception\AppException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -40,13 +39,13 @@ final class AppExtension extends AbstractExtension
      * @param mixed $paramValue
      * @param array $paramsFromRequest
      * @return string
-     * @throws AppException
+     * @throws \RuntimeException
      */
     public function appendParamToRoute(string $paramName, mixed $paramValue, array $paramsFromRequest = []): string
     {
         $request = $this->requestStack->getCurrentRequest();
         if (!$request instanceof Request) {
-            throw new AppException($this->translator->trans('error.request_not_found'));
+            throw new \RuntimeException($this->translator->trans('error.request_not_found'));
         }
 
         $params = [];
@@ -59,10 +58,6 @@ final class AppExtension extends AbstractExtension
 
         $params[$paramName] = $paramValue;
 
-        return $this->router->generate(
-            $request->get('_route'),
-            $params,
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
+        return $this->router->generate($request->get('_route'), $params, UrlGeneratorInterface::ABSOLUTE_URL);
     }
 }

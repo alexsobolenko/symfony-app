@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Exception\AppException;
-use App\Model\BookModel;
+use App\Model\DTO\BookModel;
 use App\Repository\AuthorRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -30,12 +29,12 @@ final class BookType extends AbstractType
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
-     * @throws AppException
+     * @throws \RuntimeException
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         if (!$this->authorRepository->hasAuthors()) {
-            throw new AppException('error.has_no_authors');
+            throw new \RuntimeException('error.has_no_authors');
         }
 
         $authors = [];

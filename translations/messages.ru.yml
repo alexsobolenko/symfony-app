@@ -1,0 +1,40 @@
+main.ok: 'OK'
+main.cancel: 'Отмена'
+main.save: 'Сохранить'
+
+navbar.authors: 'Авторы'
+navbar.books: 'Книги'
+
+title.authors.list: 'Авторы'
+title.authors.create: 'Создание автора'
+title.authors.edit: 'Редактирование "%name%"'
+title.books.list: 'Книги'
+title.books.create: 'Создание книги'
+title.books.edit: 'Редактирование "%name%" (%author%)'
+
+modal.delete.title: 'Удаление элемента'
+modal.delete.body: 'Подтвердите удаление'
+
+filter.author_name: 'Имя автора'
+filter.book_name: 'Название книги'
+filter.apply: 'Фильтр'
+filter.clear: 'Очистить'
+
+page.author.list.new: 'Добавить автора'
+page.author.list.not_found: 'Авторы не найдены'
+page.author.details.name: 'Имя'
+page.book.list.new: 'Добавить книгу'
+page.book.list.not_found: 'Книги не найдены'
+page.book.details.name: 'Название'
+page.book.details.author: 'Автор'
+page.book.details.price: 'Цена'
+
+error.author_not_found: 'Автор не найден по id'
+error.has_no_authors: 'Авторы отсутствуют. Добавьте автора перед добавлением книги'
+error.book_not_found: 'Книга не найдена по id'
+error.request_not_found: 'Запрос не найден'
+
+message.author.saved: 'Автор %name% сохранён'
+message.author.deleted: 'Автор %name% удалён'
+message.book.saved: 'Книга %name% сохранена'
+message.book.deleted: 'Книга %name% удалена'

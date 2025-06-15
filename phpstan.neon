@@ -6,13 +6,15 @@ includes:
 parameters:
     paths:
         - src
+
     level: 6
-    tmpDir: "%rootDir%/../../../phpstan"
-    checkGenericClassInNonGenericObjectType: false
-    checkMissingIterableValueType: false
+
     symfony:
-        container_xml_path: %rootDir%/../../../var/cache/dev/srcApp_KernelDevDebugContainer.xml
-    excludes_analyse:
-        - "%rootDir%/../../../src/Migrations/*"
+        containerXmlPath: '%rootDir%/../../../var/cache/dev/App_KernelDevDebugContainer.xml'
+
     bootstrapFiles:
         - vendor/autoload.php
+
+    ignoreErrors:
+        - identifier: missingType.iterableValue
+        - identifier: missingType.generics

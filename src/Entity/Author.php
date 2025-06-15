@@ -7,21 +7,21 @@ namespace App\Entity;
 use App\Repository\AuthorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Uid\Uuid;
 
-#[ORM\Entity(repositoryClass: AuthorRepository::class)]
-#[ORM\Table(name: 'authors')]
+#[ORM\Entity(repositoryClass: AuthorRepository::class), ORM\Table(name: 'authors')]
 class Author
 {
     #[ORM\Id]
-    #[ORM\Column(name: 'id', type: 'guid')]
-    private string $id;
+    #[ORM\GeneratedValue]
+    #[ORM\Column(name: 'id', type: Types::INTEGER)]
+    private int $id;
 
-    #[ORM\Column(name: 'name', type: 'string', length: 255)]
+    #[ORM\Column(name: 'name', type: Types::STRING, length: 255)]
     private string $name;
 
-    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Book::class)]
+    #[ORM\OneToMany(targetEntity: Book::class, mappedBy: 'author', orphanRemoval: true)]
     private Collection $books;
 
     /**
@@ -29,15 +29,14 @@ class Author
      */
     public function __construct(string $name)
     {
-        $this->id = Uuid::v7()->toRfc4122();
         $this->name = $name;
         $this->books = new ArrayCollection();
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getId(): string
+    public function getId(): int
     {
         return $this->id;
     }
@@ -59,7 +58,7 @@ class Author
     }
 
     /**
-     * @return Collection
+     * @return Collection<Book>
      */
     public function getBooks(): Collection
     {
@@ -82,7 +81,7 @@ class Author
      */
     public function removeBook(Book $book): void
     {
-        if ($this->books->contains($book)) {
+        if (!$this->books->contains($book)) {
             $this->books->removeElement($book);
         }
     }
