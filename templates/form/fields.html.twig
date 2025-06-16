@@ -35,12 +35,10 @@
 
 {%- block form_widget_simple -%}
     {%- set type = type|default('text') -%}
-    <input
-        type="{{ type }}"
-        {{ block('widget_attributes') }}
-        {% if value is not empty %}value="{{ value }}" {% endif %}
-        class="form-control form-control-md"
-    >
+    <input type="{{ type }}"
+           {{ block('widget_attributes') }}
+           {% if value is not empty %}value="{{ value }}" {% endif %}
+           class="form-control form-control-md">
 {%- endblock form_widget_simple -%}
 
 {%- block form_widget_compound -%}
@@ -74,8 +72,8 @@
         <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</button>
     {%- if  ((attr.cancelbutton is defined) and (attr.cancelbutton == true)) -%}
         <button type="button"
-        class="btn btn-primary ml-3"
-        close>
+                class="btn btn-primary ml-3"
+                close>
             Cancel
         </button>
     {%- endif -%}

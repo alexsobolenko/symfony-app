@@ -1,0 +1,40 @@
+main.ok: '确定'
+main.cancel: '取消'
+main.save: '保存'
+
+navbar.authors: '作者'
+navbar.books: '书籍'
+
+title.authors.list: '作者列表'
+title.authors.create: '添加新作者'
+title.authors.edit: '编辑 "%name%"'
+title.books.list: '书籍列表'
+title.books.create: '添加新书'
+title.books.edit: '编辑 "%name%" (%author%)'
+
+modal.delete.title: '删除项目'
+modal.delete.body: '确认删除吗？'
+
+filter.author_name: '作者名称'
+filter.book_name: '书籍名称'
+filter.apply: '筛选'
+filter.clear: '清除'
+
+page.author.list.new: '添加新作者'
+page.author.list.not_found: '未找到作者'
+page.author.details.name: '作者名称'
+page.book.list.new: '添加新书'
+page.book.list.not_found: '未找到书籍'
+page.book.details.name: '书籍名称'
+page.book.details.author: '作者'
+page.book.details.price: '价格'
+
+error.author_not_found: '未找到该ID的作者'
+error.has_no_authors: '暂无作者，请先创建'
+error.book_not_found: '未找到该ID的书籍'
+error.request_not_found: '请求未找到'
+
+message.author.saved: '作者 %name% 已保存'
+message.author.deleted: '作者 %name% 已删除'
+message.book.saved: '书籍 %name% 已保存'
+message.book.deleted: '书籍 %name% 已删除'

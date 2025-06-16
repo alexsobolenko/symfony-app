@@ -45,8 +45,12 @@ class Details extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $model = $form->getData();
-                $author = $id === null ? $repository->create($model->name) : $repository->edit($id, $model->name);
-                $this->addFlash('success', $translator->trans('message.author.saved', ['%name%' => $author->getName()]));
+                $author = $id === null
+                    ? $repository->create($model->name)
+                    : $repository->edit($id, $model->name);
+                $this->addFlash('success', $translator->trans('message.author.saved', [
+                    '%name%' => $author->getName(),
+                ]));
 
                 return $this->redirectToRoute('app_authors_list');
             }

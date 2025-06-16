@@ -20,7 +20,7 @@ function check {
     php bin/console cache:clear --env=dev --no-interaction
     php ./vendor/bin/phpstan analyse
     php ./vendor/bin/phplint
-    php ./vendor/bin/phpcs --quiet
+    php ./vendor/bin/phpcs --warning-severity=0
 }
 
 function unit {

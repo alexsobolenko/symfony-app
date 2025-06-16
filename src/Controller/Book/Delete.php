@@ -24,7 +24,9 @@ class Delete extends AbstractController
     {
         try {
             $book = $repository->delete($id);
-            $this->addFlash('success', $translator->trans('message.book.deleted', ['%name%' => $book->getNameWithAuthor()]));
+            $this->addFlash('success', $translator->trans('message.book.deleted', [
+                '%name%' => $book->getNameWithAuthor(),
+            ]));
         } catch (\Throwable $e) {
             $this->addFlash('danger', $translator->trans($e->getMessage()));
         }

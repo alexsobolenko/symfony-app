@@ -1,44 +1,46 @@
 {% macro navigation(model, requestParams) %}
-    <ul class="pagination my-3">
-        {% if model.prev is not null %}
-            <li class="page-item">
-                <a class="page-link" href="{{ append_param('page', model.prev, requestParams) }}">
-                    <i class="fas fa-angle-double-left"></i>
-                </a>
-            </li>
-        {% else %}
-            <li class="page-item disabled">
-                <a class="page-link">
-                    <i class="fas fa-angle-double-left"></i>
-                </a>
-            </li>
-        {% endif %}
-        {% for item in model.pageItems() %}
-            {% if item == '...' %}
-                <li class="page-item disabled">
-                    <a class="page-link">...</a>
+    {% if model.pages > 1 %}
+        <ul class="pagination my-3">
+            {% if model.prev is not null %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ append_param('page', model.prev, requestParams) }}">
+                        <i class="fas fa-angle-double-left"></i>
+                    </a>
                 </li>
             {% else %}
-                {% set pageClass = item == model.page ? 'page-item active' : 'page-item' %}
-                <li class="{{ pageClass }}">
-                    <a class="page-link" href="{{ append_param('page', item, requestParams) }}">
-                        {{ item }}
+                <li class="page-item disabled">
+                    <a class="page-link">
+                        <i class="fas fa-angle-double-left"></i>
                     </a>
                 </li>
             {% endif %}
-        {% endfor %}
-        {% if model.next is not null %}
-            <li class="page-item">
-                <a class="page-link" href="{{ append_param('page', model.next, requestParams) }}">
-                    <i class="fas fa-angle-double-right"></i>
-                </a>
-            </li>
-        {% else %}
-            <li class="page-item disabled">
-                <a class="page-link">
-                    <i class="fas fa-angle-double-right"></i>
-                </a>
-            </li>
-        {% endif %}
-    </ul>
+            {% for item in model.pageItems() %}
+                {% if item == '...' %}
+                    <li class="page-item disabled">
+                        <a class="page-link">...</a>
+                    </li>
+                {% else %}
+                    {% set pageClass = item == model.page ? 'page-item active' : 'page-item' %}
+                    <li class="{{ pageClass }}">
+                        <a class="page-link" href="{{ append_param('page', item, requestParams) }}">
+                            {{ item }}
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            {% if model.next is not null %}
+                <li class="page-item">
+                    <a class="page-link" href="{{ append_param('page', model.next, requestParams) }}">
+                        <i class="fas fa-angle-double-right"></i>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <a class="page-link">
+                        <i class="fas fa-angle-double-right"></i>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    {% endif %}
 {% endmacro %}

@@ -5,3 +5,4 @@ framework:
         fallbacks:
             - 'ru'
             - 'en'
+            - 'es'

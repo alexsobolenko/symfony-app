@@ -20,16 +20,20 @@
 <body>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <a class="navbar-brand" href="/">
-            <img
-                src="https://getbootstrap.com/docs/4.6/assets/brand/bootstrap-solid.svg"
-                width="30"
-                height="30"
-                class="d-inline-block align-top"
-                alt=""
-            >
-            Symfony-6 test
+            <img src="https://getbootstrap.com/docs/4.6/assets/brand/bootstrap-solid.svg"
+                 width="30"
+                 height="30"
+                 class="d-inline-block align-top"
+                 alt="">
+            Symfony test app
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -48,26 +52,42 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_change_locale', {'locale': 'ru'}) }}">
-                        <img
-                            class="flag {{ app.request.locale == 'ru' ? 'active' : '' }}"
-                            src="/locale/ru.png"
-                            alt="RU"
-                            data-toggle="tooltip"
-                            data-placement="bottom"
-                            title="Русский"
-                        >
+                        <img class="flag {{ app.request.locale == 'ru' ? 'active' : '' }}"
+                             src="/locale/ru.png"
+                             alt="RU"
+                             data-toggle="tooltip"
+                             data-placement="bottom"
+                             title="Русский">
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_change_locale', {'locale': 'en'}) }}">
-                        <img
-                            class="flag {{ app.request.locale == 'en' ? 'active' : '' }}"
-                            src="/locale/en.png"
-                            alt="EN"
-                            data-toggle="tooltip"
-                            data-placement="bottom"
-                            title="English"
-                        >
+                        <img class="flag {{ app.request.locale == 'en' ? 'active' : '' }}"
+                             src="/locale/en.png"
+                             alt="EN"
+                             data-toggle="tooltip"
+                             data-placement="bottom"
+                             title="English">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_change_locale', {'locale': 'es'}) }}">
+                        <img class="flag {{ app.request.locale == 'es' ? 'active' : '' }}"
+                             src="/locale/es.png"
+                             alt="ES"
+                             data-toggle="tooltip"
+                             data-placement="bottom"
+                             title="Español">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_change_locale', {'locale': 'zh_CN'}) }}">
+                        <img class="flag {{ app.request.locale == 'zh_CN' ? 'active' : '' }}"
+                             src="/locale/zh_CN.png"
+                             alt="ZH_CN"
+                             data-toggle="tooltip"
+                             data-placement="bottom"
+                             title="中国人">
                     </a>
                 </li>
             </ul>

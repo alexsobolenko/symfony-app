@@ -24,8 +24,12 @@ class Index extends AbstractController
     public function __invoke(Request $request, BookRepository $repository, TranslatorInterface $translator): Response
     {
         $filters = $request->query->all();
-        isset($filters['page']) || ($filters['page'] = 1);
-        isset($filters['limit']) || ($filters['limit'] = (int) $this->getParameter('authors_on_page'));
+        if (!isset($filters['page'])) {
+            $filters['page'] = 1;
+        }
+        if (!isset($filters['limit'])) {
+            $filters['limit'] = (int)$this->getParameter('books_on_page');
+        }
 
         try {
             $total = $repository->countByFilter($filters);

@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\Author;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -112,11 +113,11 @@ class AuthorRepository extends ServiceEntityRepository
      */
     public function countByFilter(array $filters): int
     {
-        $qb = $this->createQuery($filters);
-        $qb->select('COUNT(a.id)');
-
         try {
-            return (int) $qb->getQuery()->getSingleScalarResult();
+            $qb = $this->createQuery($filters);
+            $qb->select('COUNT(a.id)');
+
+            return (int)$qb->getQuery()->getSingleScalarResult();
         } catch (ORMException $e) {
             throw new BadRequestHttpException($e->getMessage(), $e);
         }
@@ -129,16 +130,16 @@ class AuthorRepository extends ServiceEntityRepository
      */
     public function findByFilter(array $filters): array
     {
-        $page = $filters['page'] ?? 1;
-        $limit = $filters['limit'] ?? 1;
-
-        $qb = $this->createQuery($filters);
-        $qb->setMaxResults($limit);
-        $qb->setFirstResult(($page - 1) * $limit);
-
-        $qb->addOrderBy('a.name', 'ASC');
-
         try {
+            $page = $filters['page'] ?? 1;
+            $limit = $filters['limit'] ?? 1;
+
+            $qb = $this->createQuery($filters);
+            $qb->setMaxResults($limit);
+            $qb->setFirstResult(($page - 1) * $limit);
+
+            $qb->addOrderBy('a.name', Order::Ascending->value);
+
             return $qb->getQuery()->getResult();
         } catch (ORMException $e) {
             throw new BadRequestHttpException($e->getMessage(), $e);

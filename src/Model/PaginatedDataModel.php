@@ -38,7 +38,7 @@ final class PaginatedDataModel
         $this->next = null;
 
         if ($this->total > 0) {
-            $this->pages = (int) ceil($this->total / $this->limit);
+            $this->pages = (int)ceil($this->total / $this->limit);
 
             if ($this->pages > 1) {
                 if ($this->page !== $this->pages) {
@@ -61,7 +61,7 @@ final class PaginatedDataModel
     {
         $res = [1];
         if ($this->total > 0) {
-            $this->pages = (int) ceil($this->total / $this->limit);
+            $this->pages = (int)ceil($this->total / $this->limit);
             if ($this->pages <= $length) {
                 for ($i = 2; $i <= $this->pages; $i++) {
                     $res[] = $i;

@@ -1,0 +1,6 @@
+error.name_is_blank: '名称不能为空'
+error.name_length_min: '名称长度至少 {{ limit }} 个字符'
+error.name_length_max: '名称长度不能超过 {{ limit }} 个字符'
+error.price_is_blank: '价格不能为空'
+error.price_not_in_range: '价格应在 {{ min }} 和 {{ max }} 之间'
+error.author_is_blank: '作者不能为空'

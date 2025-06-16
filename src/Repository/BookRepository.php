@@ -7,6 +7,7 @@ namespace App\Repository;
 use App\Entity\Author;
 use App\Entity\Book;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Order;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -111,11 +112,11 @@ class BookRepository extends ServiceEntityRepository
      */
     public function countByFilter(array $filters): int
     {
-        $qb = $this->createQuery($filters);
-        $qb->select('COUNT(b.id)');
-
         try {
-            return (int) $qb->getQuery()->getSingleScalarResult();
+            $qb = $this->createQuery($filters);
+            $qb->select('COUNT(b.id)');
+
+            return (int)$qb->getQuery()->getSingleScalarResult();
         } catch (ORMException $e) {
             throw new BadRequestHttpException($e->getMessage(), $e);
         }
@@ -128,17 +129,17 @@ class BookRepository extends ServiceEntityRepository
      */
     public function findByFilter(array $filters): array
     {
-        $page = $filters['page'] ?? 1;
-        $limit = $filters['limit'] ?? 1;
-
-        $qb = $this->createQuery($filters);
-        $qb->setMaxResults($limit);
-        $qb->setFirstResult(($page - 1) * $limit);
-
-        $qb->addOrderBy('b.price', 'ASC');
-        $qb->addOrderBy('b.name', 'ASC');
-
         try {
+            $page = $filters['page'] ?? 1;
+            $limit = $filters['limit'] ?? 1;
+
+            $qb = $this->createQuery($filters);
+            $qb->setMaxResults($limit);
+            $qb->setFirstResult(($page - 1) * $limit);
+
+            $qb->addOrderBy('b.price', Order::Ascending->value);
+            $qb->addOrderBy('b.name', Order::Ascending->value);
+
             return $qb->getQuery()->getResult();
         } catch (ORMException $e) {
             throw new BadRequestHttpException($e->getMessage(), $e);
@@ -156,14 +157,9 @@ class BookRepository extends ServiceEntityRepository
         $name = $filters['name'] ?? null;
         if ($name) {
             $qb->andWhere($qb->expr()->like('b.name', ':name'));
-            $qb->setParameter('name', '%' . $name . '%');
-        }
-
-        $author = $filters['author'] ?? null;
-        if ($author) {
             $qb->leftJoin('b.author', 'a');
-            $qb->andWhere($qb->expr()->like('a.name', ':author'));
-            $qb->setParameter('author', '%' . $author . '%');
+            $qb->andWhere($qb->expr()->like('a.name', ':name'));
+            $qb->setParameter('name', '%' . $name . '%');
         }
 
         return $qb;

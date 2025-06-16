@@ -51,7 +51,9 @@ class Details extends AbstractController
                 $book = $id === null
                     ? $repository->create($model->author, $model->name, $model->price)
                     : $repository->edit($id, $model->author, $model->name, $model->price);
-                $this->addFlash('success', $translator->trans('message.book.saved', ['%name%' => $book->getNameWithAuthor()]));
+                $this->addFlash('success', $translator->trans('message.book.saved', [
+                    '%name%' => $book->getNameWithAuthor(),
+                ]));
 
                 return $this->redirectToRoute('app_books_list');
             }

@@ -1,0 +1,41 @@
+main.ok: 'Aceptar'
+main.cancel: 'Cancelar'
+main.save: 'Guardar'
+
+navbar.authors: 'Autores'
+navbar.books: 'Libros'
+
+title.authors.list: 'Autores'
+title.authors.create: 'Agregar nuevo autor'
+title.authors.edit: 'Editar "%name%"'
+title.books.list: 'Libros'
+title.books.create: 'Agregar nuevo libro'
+title.books.edit: 'Editar "%name%" (%author%)'
+
+modal.delete.title: 'Eliminar elemento'
+modal.delete.body: '¿Confirmar eliminación?'
+
+filter.author_name: 'Nombre del autor'
+filter.book_name: 'Nombre del libro'
+filter.apply: 'Filtrar'
+filter.clear: 'Limpiar'
+
+page.author.list.new: 'Agregar nuevo autor'
+page.author.list.not_found: 'No se encontraron autores'
+page.author.details.name: 'Nombre del autor'
+page.book.list.new: 'Agregar nuevo libro'
+page.book.list.not_found: 'No se encontraron libros'
+page.book.details.name: 'Nombre del libro'
+page.book.details.author: 'Autor'
+page.book.details.price: 'Precio'
+
+error.author_not_found: 'Autor no encontrado por id'
+error.has_no_authors: 'No hay autores todavía. Crea uno nuevo primero'
+error.book_not_found: 'Libro no encontrado por id'
+error.request_not_found: 'Solicitud no encontrada'
+
+message.author.saved: 'Autor %name% guardado'
+message.author.deleted: 'Autor %name% eliminado'
+message.book.saved: 'Libro %name% guardado'
+message.book.deleted: 'Libro %name% eliminado'
+

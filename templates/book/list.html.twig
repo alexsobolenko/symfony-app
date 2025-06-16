@@ -7,81 +7,56 @@
 {% endblock %}
 
 {% block body %}
-    <div class="card my-3">
-        <form class="card-body">
-            <div class="row g-3 align-items-center mb-2">
-                <div class="col-3 text-right">
-                    <label for="filter_author" class="col-form-label">
-                        {{ 'filter.author_name'|trans }}
-                    </label>
-                </div>
-                <div class="col-5">
-                    <input
-                        id="filter_author"
-                        class="form-control"
-                        name="author"
-                        value="{{ app.request.query.get('author') }}"
-                    >
-                </div>
-            </div>
-            <div class="row g-3 align-items-center">
-                <div class="col-3 text-right">
-                    <label for="filter_name" class="col-form-label">
-                        {{ 'filter.book_name'|trans }}
-                    </label>
-                </div>
-                <div class="col-5">
-                    <input
-                        id="filter_name"
-                        class="form-control"
-                        name="name"
-                        value="{{ app.request.query.get('name') }}"
-                    >
-                </div>
-                <div class="col-4 px-3">
-                    <div class="btn-group w-100">
-                        <button type="submit" class="btn btn-success">
+    <div class="row my-3">
+        <div class="col clearfix">
+            <div class="float-left">
+                <form class="input-group"
+                      style=" min-width: 500px; max-width: 1000px;">
+                    <input class="form-control" name="name">
+                    <div class="btn-group">
+                        <button class="btn btn-success"
+                                style="border-radius: 0;"
+                                type="submit">
                             {{ 'filter.apply'|trans }}
                         </button>
-                        <a href="{{ absolute_url(path('app_books_list')) }}" class="btn btn-danger">
+                        <a class="btn btn-danger"
+                           href="{{ absolute_url(path('app_books_list')) }}">
                             {{ 'filter.clear'|trans }}
                         </a>
                     </div>
-                </div>
+                </form>
             </div>
-        </form>
-    </div>
-    <div class="my-3">
-        <a href="{{ path('app_book_create') }}">
-            {{ 'page.book.list.new'|trans }}
-        </a>
+            <div class="float-right">
+                <a href="{{ path('app_book_create') }}"
+                   style="line-height: 38px;">
+                    {{ 'page.book.list.new'|trans }}
+                </a>
+            </div>
+        </div>
     </div>
     {% for book in books.items %}
         <ul class="list-group mb-1">
             <li class="list-group-item d-flex justify-content-between align-items-start">
                 <div>
                     {{ book.name }}
-                    <a
-                        href="{{ absolute_url(path('app_books_list', {'author': book.author.name})) }}"
-                        class="text-muted"
-                    >
+                    <a href="{{ absolute_url(path('app_books_list', {'author': book.author.name})) }}"
+                       class="text-muted">
                         ({{ book.author.name }})
                     </a>
-                    <span class="badge bg-info text-white ml-2" style="font-size: 15px;">${{ book.price }}</span>
+                    <span class="badge bg-info text-white ml-2"
+                          style="font-size: 15px;">
+                        ${{ book.price }}
+                    </span>
                 </div>
                 <div class="btn-group" style="height: 49px; margin: -12px -20px -12px 0;">
-                    <a
-                        href="{{ path('app_book_edit', {'id': book.id}) }}"
-                        class="btn btn-outline-success"
-                        style="min-width: 50px; line-height: 36px;"
-                    >
+                    <a href="{{ path('app_book_edit', {'id': book.id}) }}"
+                       class="btn btn-outline-success"
+                       style="min-width: 50px; line-height: 36px;">
                         <i class="fas fa-pen"></i>
                     </a>
-                    <button
-                        class="btn btn-outline-danger btn-modal-delete"
-                        style="min-width: 50px; line-height: 36px;"
-                        data-href="{{ path('app_book_delete', {'id': book.id}) }}"
-                    >
+                    <button class="btn btn-outline-danger btn-modal-delete"
+                            style="min-width: 50px; line-height: 36px;"
+                            data-href="{{ path('app_book_delete', {'id': book.id}) }}">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
